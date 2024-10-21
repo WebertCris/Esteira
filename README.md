@@ -1,11 +1,46 @@
 # Esteira
-Projeto de...
+__Tema:__ Sensores da Esteira
 
+__Equipe:__ Webert Cristhian Dutra Soares e GABRIEL TOSTA NUNES
 
-## Subtítulo
+### Assunto.
+Os sensores de esteira são dispositivos fundamentais para sistemas industriais e de
+automação, sendo empregados para monitorar e controlar processos ao longo de linhas de
+produção. Neste projeto, estamos focando na implementação e aprimoramento de quatro
+tipos de sensores: o sensor de velocidade, o sensor de cor, o sensor de temperatura e o
+sensor de ultrassom. As melhorias visam otimizar o desempenho da esteira, garantir maior
+precisão na medição, e assegurar uma produção mais eficiente e segura.
 
-__negrito__
+### Importância.
+A melhoria na implementação dos sensores de esteira é essencial para acompanhar as
+demandas de eficiência e qualidade da indústria moderna. Sensores mais precisos e
+otimizados permitem um controle mais fino da operação, reduzindo o tempo de parada,
+melhorando a qualidade dos produtos e minimizando perdas. A integração adequada
+desses sensores também garante maior segurança, pois possibilita a identificação rápida de
+problemas, além de oferecer dados em tempo real para a tomada de decisão gerencial.
 
-[SIGAA](https://sigga.ifsc.edu.br)
+### Objetivos.
+O objetivo geral do projeto é entregar uma informação útil para o processamento. Então
+basicamente verificaremos o funcionamento de cada sensor individualmente, acarretando
+em tarefas da seguinte ordem:
+- Ajustar e calibrar o sensor de velocidade para melhorar o controle do ritmo da produção;
+- Aperfeiçoar a precisão do sensor de cor, permitindo uma inspeção de qualidade mais
+rigorosa;
+- Otimizar o sensor de temperatura para assegurar que máquinas e produtos se mantenham
+dentro de parâmetros seguros;
+- Atualizar o sensor de ultrassom para uma melhor detecção de obstáculos, evitando
+paradas não planejadas e colisões.
 
-![Dog](https://cdn.outsideonline.com/wp-content/uploads/2023/03/Funny_Dog_H.jpg?crop=16:9&width=960&enable=upscale&quality=100)
+### Tópicos .
+1. Sensor de Velocidade: Monitoramento e controle da velocidade da esteira para garantir
+que o ritmo da produção seja eficiente. As melhorias buscam aumentar a precisão na
+resposta e evitar sobrecarga no sistema.
+2. Sensor de Cor: Utilizado para identificar e classificar produtos com base em suas cores.
+As melhorias visam aumentar a sensibilidade do sensor, garantindo que nenhuma anomalia
+passe despercebida.
+3. Sensor de Temperatura: Controla a temperatura de máquinas e produtos, evitando
+superaquecimento e garantindo a qualidade. Com as atualizações, espera-se maior
+precisão e respostas mais rápidas às variações.
+4. Sensor de Ultrassom: Mede distâncias e detecta obstáculos ao longo da linha de
+produção. As melhorias neste sensor permitirão uma detecção mais eficiente de objetos,
+otimizando o fluxo produtivo e evitando paradas inesperadas.
