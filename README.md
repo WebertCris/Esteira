@@ -19,11 +19,12 @@ desses sensores também garante maior segurança, pois possibilita a identifica�
 problemas, além de oferecer dados em tempo real para a tomada de decisão gerencial.
 
 __Objetivos.__
-O objetivo geral do projeto é entregar uma informação útil para o processamento. Então
-basicamente verificaremos o funcionamento de cada sensor individualmente, acarretando
-em tarefas da seguinte ordem:
+O objetivo geral do projeto é entregar uma informação útil para o processamento, além de 
+um perfeito funcionamento da esteira em conjunto com os sensores. Então basicamente 
+verificaremos o funcionamento de cada sensor individualmente, acarretando em tarefas da 
+seguinte ordem:
 
-- Entender o funcionamento do controle motor da esteira;
+- Entender o funcionamento do controle do motor da esteira;
 - Ajustar e calibrar o sensor de velocidade afim de colocar o dispositivo em funcionamento;
 - Revisar a informação de saída dos sensores de cor, ultrasson e temperatura;
   
