@@ -1,6 +1,6 @@
 # Esteira
 
-__Equipe:__ Webert Cristhian Dutra Soares e GABRIEL TOSTA NUNES
+__Equipe:__ Webert Cristhian Dutra Soares e Gabriel Tosta Nunes
 
 Os sensores de esteira são dispositivos fundamentais para sistemas industriais e de
 automação, sendo empregados para monitorar e controlar processos ao longo de linhas de
@@ -40,3 +40,5 @@ precisão e respostas mais rápidas às variações.
 Sensor de Ultrassom: Mede distâncias e detecta obstáculos ao longo da linha de
 produção. As melhorias neste sensor permitirão uma detecção mais eficiente de objetos,
 otimizando o fluxo produtivo e evitando paradas inesperadas.
+
+![Esteira](https://raw.githubusercontent.com/WebertCris/Esteira/refs/heads/main/figuras/Esteira.jpg)
