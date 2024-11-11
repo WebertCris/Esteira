@@ -28,12 +28,15 @@ Revisar a informação de saída dos sensores de cor, ultrasson e temperatura;
 Sensor de Velocidade: Monitoramento e controle da velocidade da esteira para garantir
 que o ritmo da produção seja eficiente. As melhorias buscam aumentar a precisão na
 resposta e evitar sobrecarga no sistema.
+
 Sensor de Cor: Utilizado para identificar e classificar produtos com base em suas cores.
 As melhorias visam aumentar a sensibilidade do sensor, garantindo que nenhuma anomalia
 passe despercebida.
+
 Sensor de Temperatura: Controla a temperatura de máquinas e produtos, evitando
 superaquecimento e garantindo a qualidade. Com as atualizações, espera-se maior
 precisão e respostas mais rápidas às variações.
+
 Sensor de Ultrassom: Mede distâncias e detecta obstáculos ao longo da linha de
 produção. As melhorias neste sensor permitirão uma detecção mais eficiente de objetos,
 otimizando o fluxo produtivo e evitando paradas inesperadas.
