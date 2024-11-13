@@ -96,29 +96,30 @@ o código enquanto espera a velocidade atingir o ponto desejado. Durante esse te
 e comandos, como o monitoramento de RPM e as mensagens MQTT, não podem ser processados.
 Controle Seguro de Inversão de Sentido: Uma mudança brusca no sentido de rotação do motor pode causar 
 desgaste ou danos. Implementaremos um controle que detecta mudanças na variável de sentido e primeiro 
-desacelera o motor até zero antes de inverter o sentido. 
+desacelera o motor até zero antes de inverter o sentido.
+
 Inconsistência na Medição do RPM: Em alguns testes, o sistema apresentou medições incorretas de RPM, 
 mesmo sem conexão com o sensor encoder, indicando uma possível interferência ou erro de código. 
 Publicação da Velocidade Real (km/h): Em vez de depender apenas do valor de RPM, o sistema agora 
 publicará a velocidade real da esteira em km/h, utilizando o valor de RPM ajustado à circunferência 
 do eixo do motor.
 Funcionamento do Sensor de Cor.
+
 O Sensor de cor TCS34725, representado na figura 02, utiliza uma matriz de fotodiodos sensíveis à 
 luz vermelha, verde, azul e infravermelha para capturar a cor de uma superfície ou objeto. Esses 
 fotodiodos convertem a luz incidente em corrente elétrica, que é então convertida em sinais digitais 
 para determinar a intensidade de cada cor. Uma das vantagens do TCS34725 é sua capacidade de compensar 
 a luz ambiente, permitindo medições precisas mesmo em diferentes condições de iluminação. Além disso, 
 ele possui um filtro de luz infravermelha embutido, que ajuda a melhorar a precisão das medições de cor.
-Problemas e Melhorias no Sensor de Cor
+Problemas e Melhorias no Sensor de Cor.
+
 Precisão na Leitura de Cores Fora do Espectro RGB: Cores que não pertencem estritamente aos parâmetros 
 configurados no código (rosa, laranja, vermelho, verde, azul), apresentam desafios de detecção e podem 
 resultar em leituras incorretas devido à proximidade com os espectros vermelho e verde. Para solucionar 
 isso, faremos ajustes nos parâmetros de calibração, buscando aumentar a sensibilidade do sensor TCS34725 
 para identificar nuances e tons intermediários com maior precisão, buscando utilizar a escala RGBC.
 
-Objetivos.
-
-Para os próximos testes no projeto da esteira com quatro sensores, será essencial realizar uma verificação 
+Objetivos: Para os próximos testes no projeto da esteira com quatro sensores, será essencial realizar uma verificação 
 detalhada do funcionamento individual de cada sensor. Esses testes devem assegurar que cada sensor opere 
 de forma independente e confiável, captando dados precisos e consistentes. Além disso, será necessário 
 avaliar a qualidade das informações coletadas por cada um, a fim de garantir que os dados enviados ao banco 
