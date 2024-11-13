@@ -87,9 +87,7 @@ Classe de isolação F 155° C (temperatura máxima de operação)
 Carga radial máxima de 3kg e axial de 1,5kg
 todos possuem as mesmas dimensões e peso de 0.64kg
 
-Problemas e Melhorias no Sensor de Velocidade
-
-O sensor de velocidade, baseado no LM393, monitora a rotação do motor e fornece informações em RPM. 
+Problemas e Melhorias no Sensor de Velocidade: O sensor de velocidade, baseado no LM393, monitora a rotação do motor e fornece informações em RPM. 
 Alguns problemas identificados na implementação do sensor de velocidade incluem: 
 Bloqueio da Função "Acelera": A função atual, que usa "delay" para controlar a aceleração, bloqueia 
 o código enquanto espera a velocidade atingir o ponto desejado. Durante esse tempo, outras leituras 
