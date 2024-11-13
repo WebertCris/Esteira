@@ -42,3 +42,5 @@ produção. As melhorias neste sensor permitirão uma detecção mais eficiente 
 otimizando o fluxo produtivo e evitando paradas inesperadas.
 
 ![Esteira](https://raw.githubusercontent.com/WebertCris/Esteira/refs/heads/main/figuras/Esteira.jpg)
+
+##Desing
