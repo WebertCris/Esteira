@@ -43,7 +43,7 @@ otimizando o fluxo produtivo e evitando paradas inesperadas.
 
 ![Esteira](https://raw.githubusercontent.com/WebertCris/Esteira/refs/heads/main/figuras/Esteira.jpg)
 
-## Design
+### Design
 
 Neste projeto de automação, o sensor de velocidade e o sensor de cor são fundamentais para o 
 monitoramento e controle do fluxo produtivo na esteira. Ambos os sensores foram escolhidos 
