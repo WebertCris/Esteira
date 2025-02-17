@@ -475,6 +475,133 @@ void loop() {
 O código do Sensor de Cor estava funcionando muito bem, a única melhoria que realizei foi de aumentar a gama de Cores que o sensor é capaz de identificar com base na lógica condicional.
 
 ```cpp
+#incluir <Fio.h>
+#incluir "Adafruit_TCS34725.h"
+#incluir <WiFi.h>
+#incluir <PubSubClient.h"
+
+//faz as configurações do sensor de presença
+const int presençaSensorPin = 27; // Pino conectado ao sensor de presença (D27 no ESP-32)
+
+// Criação do objeto para o sensor TCS34725 com tempo de integração e ganho definido
+Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_TEMPO_INTEGRAÇÃO_50MS, TCS34725_GANHO_4X);
+
+bool objectPreviamenteDetectado = false; // Variável para rastrear o estado anterior do objeto
+
+// Configurações Wi-Fi
+const char *ssid = "lpae_wifi";
+const char *senha = "esp-8266";
+
+// Configurações MQTT
+const char *mqtt_broker = "192.168.1.2";
+const char *topic = "v1/dispositivos/eu/telemetria";
+const int mqtt_port = 1883;
+const char *mqtt_user = "76HUc0AcMh9ZXR3fql2n";
+const char *mqtt_password = "";
+
+WiFiClient espClient;
+Cliente PubSubClient(espClient);
+
+//Função para conectar ao WiFi
+configuração vazia_wifi() {
+    Serial.println("Conectando ao WiFi...");
+    WiFi.begin(ssid, senha);
+    enquanto (WiFi.status() != WL_CONNECTED) {
+        atraso(500);
+        Serial.print(".");
+    }
+    Serial.println("\nWiFi conectado!");
+}
+
+// Função para conectar ao MQTT
+vazio reconectar() {
+    enquanto (!client.connected()) {
+        Serial.print("Conectando ao MQTT...");
+        se (cliente.connect("ESP32Client", mqtt_user, mqtt_password)) {
+            Serial.println("Conectado ao MQTT!");
+            cliente.subscribe(tópico);
+        } outro {
+            Serial.print("Falha na conexão, rc=");
+            Serial.println(cliente.estado());
+            atraso(2000);
+        }
+    }
+}
+
+// Função para enviar mensagens JSON ao MQTT
+void sendMessage(const char *sensor, const char *assunto, const char *valor) {
+    buffer de caracteres[256];
+    snprintf(buffer, sizeof(buffer), "{\"sensor\": \"%s\", \"assunto\": \"%s\", \"valor\": \"%s\"}", sensor, assunto, valor);
+    cliente.publicar(tópico, buffer);
+}
+
+configuração vazia() {
+    // Inicializa a comunicação serial
+    Serial.begin(115200);
+    pinMode(presençaSensorPin, ENTRADA);
+
+    // Inicializa o sensor TCS34725
+    se (tcs.begin()) {
+        Serial.println("Sensor TCS34725 encontrado!");
+    } outro {
+        Serial.println("Sensor TCS34725 não encontrado. Verifique as conexões.");
+        enquanto (1);
+    }
+
+    // Configurar WiFi e MQTT
+    configuração_wifi();
+    cliente.setServer(mqtt_broker, mqtt_port);
+    client.setCallback([](char *tópico, byte *carga útil, comprimento int não assinado) {
+        Serial.print("Mensagem recebida no tópico: ");
+        Serial.println(tópico);
+    });
+}
+
+loop vazio() {
+    // Manter a conexão MQTT
+    se (!cliente.conectado()) {
+        reconectar();
+    }
+    cliente.loop();
+
+    // Verifica a presença do objeto
+    bool currentPresence = digitalRead(presenceSensorPin) == ALTO;
+
+    se (currentPresence && !objectPreviouslyDetected) {
+        objetoAnteriormenteDetectado = verdadeiro;
+
+        // Leia os valores de cor
+        uint16_t vermelho, verde, azul, transparente;
+        tcs.getRawData(&vermelho, &verde, &azul, &limpo);
+
+        // Determinação da cor
+        const char *color = "indefinido";
+
+        se (limpar < 500) {
+            cor = "preto";
+        } senão se (limpar>3000) {
+            cor ="branco";
+        }outro se(vermelho > verde && vermelho > azul && (vermelho - verde >100)) {
+            se (azul > verde) {
+                cor = "rosa";
+            } senão se ((verde - azul) > 400) {
+                cor = "laranja";
+            } outro {
+                cor = "vermelho";
+            }
+        } senão se (verde > vermelho && verde > azul) {
+            se ((azul - vermelho) > 100) {
+                cor = "ciano";
+            } outro {
+                cor = "verde";
+            }
+        } senão se (azul > vermelho && azul > verde) {
+            se ((vermelho - verde) > 100) {
+                cor = "magenta";
+
+
+### Alteração do Código do Sensor da Esteira
+```cpp
 #include <Wire.h>
 #include "Adafruit_TCS34725.h"
 #include <WiFi.h>
