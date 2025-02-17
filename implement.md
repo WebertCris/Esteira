@@ -193,7 +193,7 @@ void loop() {
 ```
 
 ### Código 4 - Código do Motor e Sensor de Velocidade
-Assim como comentado no Design, buscamos realizar as melhorias que tinhamos como metas no próprio código unificado que iria ser compilado no ESP32. Entre as melhorias temos a realização do cálculo da Velocidade no Formato de m/s, a Comunicação do MQTT em Mensagens no formato .json, para facilitar o recebimento das informações pelo Home Assistant
+Assim como comentado no Design, buscamos realizar as melhorias que tinhamos como metas no próprio código unificado que iria ser compilado no ESP32. Pelo não funcionamento correto da biblioteca desenvolvida anteriormene, simplificamos a funcionalidade da esteira para que possamos controlar a sua potência pelo home assistant. O ESP apenas se inscreve no tópico do motor da esteira. E com o uso de um potenciometro virtual no home assistant, cuja resposta é enviada em um JSON com as chaves module e value, conseguimos controlar a potência da esteira de maneira eficiente.
 
 ```cpp
 #include <WiFi.h>
@@ -472,7 +472,7 @@ void loop() {
 
 ```
 ### Código 5 - Código do Sensor de Cor, para aumentar a gama de cores identificáveis
-O código do Sensor de Cor estava funcionando muito bem, a única melhoria que realizei foi de aumentar a gama de Cores que o sensor é capaz de identificar com base na lógica condicional.
+Aprimoramos o código do sensor de cor para que a resposta enviada ao Home Assistant fosse um código hexadecimal correspondente à cor detectada. Dessa forma, estruturamos a mensagem em JSON com as chaves sensor, função e valor, garantindo que o valor enviado fosse o código hexadecimal correto.
 
 ```cpp
 #incluir <Fio.h>
