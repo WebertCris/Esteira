@@ -372,7 +372,105 @@ void loop() {
     CalcRPM();
 }
 ```
+### Alteração do Código do Sensor da Esteira
+```cpp
+#include <Wire.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
 
+// Configuração do motor
+#define IN1 12
+#define IN2 14
+#define ENA 13
+
+int motorPower = 0; // Potência inicial do motor
+
+// Configurações Wi-Fi
+const char *ssid = "lpae_wifi";
+const char *password = "esp-8266";
+
+// Configurações MQTT
+const char *mqtt_broker = "192.168.1.2";
+const char *topic = "v1/devices/me/rpc/request/+";
+const int mqtt_port = 1883;
+const char *mqtt_user = "2ikanN8UH55YvGpJhxGp";
+const char *mqtt_password = "";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+void setup_wifi() {
+    Serial.begin(115200);
+    Serial.println("Conectando ao WiFi...");
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("\nWiFi conectado!");
+}
+
+void reconnect() {
+    while (!client.connected()) {
+        Serial.print("Conectando ao MQTT...");
+        if (client.connect("ESP32Client", mqtt_user, mqtt_password)) {
+            Serial.println("Conectado ao MQTT!");
+            client.subscribe(topic);
+        } else {
+            Serial.print("Falha na conexão, rc=");
+            Serial.println(client.state());
+            delay(2000);
+        }
+    }
+}
+
+void sendMessage(const char *sensor, const char *assunto, int valor) {
+    char buffer[256];
+    snprintf(buffer, sizeof(buffer), "{\"sensor\": \"%s\", \"assunto\": \"%s\", \"valor\": %d}", sensor, assunto, valor);
+    client.publish(topic, buffer);
+    Serial.print("Mensagem enviada: ");
+    Serial.println(buffer);
+}
+
+void callback(char* topic, byte* payload, unsigned int length) {
+    char message[length + 1];
+    memcpy(message, payload, length);
+    message[length] = '\0';
+    Serial.println(message);
+    int newPower = atoi(message);
+    if (newPower >= 0 && newPower <= 255) {
+        motorPower = newPower;
+        analogWrite(ENA, motorPower);
+        Serial.print("Nova potência recebida: ");
+        Serial.println(motorPower);
+        sendMessage("motor", "potencia", motorPower);
+    }
+}
+
+void setup() {
+    setup_wifi();
+    client.setServer(mqtt_broker, mqtt_port);
+    client.setCallback(callback);
+    
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
+    pinMode(ENA, OUTPUT);
+    
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    analogWrite(ENA, motorPower);
+}
+
+void loop() {
+    if (!client.connected()) {
+        reconnect();
+    }
+    client.loop();
+    sendMessage("motor", "potencia", motorPower);
+    delay(5000);
+}
+
+```
 ### Código 5 - Código do Sensor de Cor, para aumentar a gama de cores identificáveis
 O código do Sensor de Cor estava funcionando muito bem, a única melhoria que realizei foi de aumentar a gama de Cores que o sensor é capaz de identificar com base na lógica condicional.
 
