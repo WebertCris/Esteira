@@ -598,9 +598,29 @@ loop vazio() {
         } senão se (azul > vermelho && azul > verde) {
             se ((vermelho - verde) > 100) {
                 cor = "magenta";
+            } outro {
+                cor = "azul";
+            }
+        } senão se ((vermelho > 2000 && verde > 2000 && azul < 1000)) {
+            cor = "amarelo";
+        } senão se ((vermelho > verde && verde > azul) && (vermelho - verde < 500)) {
+            cor = "marrom";
+        }
 
+        // Publica a cor bloqueada no tópico MQTT
+        Serial.printf("Cor bloqueada: %s\n", color);
+        enviarmensagem("sensor_de_cor", "cor", cor);
+
+    } senão se (!currentPresence) {
+        objetoAnteriormenteDetectado = falso;
+    }
+
+    atraso(200);
+}
+```
 
 ### Alteração do Código do Sensor da Esteira
+
 ```cpp
 #include <Wire.h>
 #include "Adafruit_TCS34725.h"
