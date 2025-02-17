@@ -1,4 +1,4 @@
-##Conclusão
+## Conclusão
 
 Durante o desenvolvimento deste projeto, conseguimos estabelecer com sucesso a comunicação dos sensores da esteira com o Home Assistant 
 por meio do protocolo MQTT. Enfrentamos desafios devido às restrições do Home Assistant, que não permite publicação e inscrição no mesmo 
