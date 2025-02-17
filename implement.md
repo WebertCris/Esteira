@@ -380,7 +380,7 @@ O código do Sensor de Cor estava funcionando muito bem, a única melhoria que r
 #include <Wire.h>
 #include "Adafruit_TCS34725.h"
 #include <WiFi.h>
-#include <PubSubClient.h"
+#include <PubSubClient.h>
 
 // Configurações do sensor de presença
 const int presenceSensorPin = 27; // Pino conectado ao sensor de presença (D27 no ESP-32)
@@ -459,6 +459,9 @@ void setup() {
     });
 }
 
+unsigned long lastColorCheck = 0; // Armazena o tempo da última leitura
+const unsigned long interval = 3000; // Intervalo de 10 segundos
+
 void loop() {
     // Mantém a conexão MQTT
     if (!client.connected()) {
@@ -469,54 +472,35 @@ void loop() {
     // Verifica a presença do objeto
     bool currentPresence = digitalRead(presenceSensorPin) == HIGH;
 
-    if (currentPresence && !objectPreviouslyDetected) {
-        objectPreviouslyDetected = true;
+    // Lê a cor a cada 10 segundos, se houver um objeto presente
+    if (currentPresence && millis() - lastColorCheck >= interval) {
+        lastColorCheck = millis(); // Atualiza o tempo da última leitura
 
         // Lê os valores de cor
         uint16_t red, green, blue, clear;
         tcs.getRawData(&red, &green, &blue, &clear);
 
-        // Determinação da cor
-        const char *color = "indefinido";
+        // Evita divisão por zero
+        if (clear == 0) clear = 1;
 
-        if (clear < 500) {
-            color = "preto";
-        } else if (clear > 3000) {
-            color = "branco";
-        } else if (red > green && red > blue && (red - green > 100)) {
-            if (blue > green) {
-                color = "rosa";
-            } else if ((green - blue) > 400) {
-                color = "laranja";
-            } else {
-                color = "vermelho";
-            }
-        } else if (green > red && green > blue) {
-            if ((blue - red) > 100) {
-                color = "ciano";
-            } else {
-                color = "verde";
-            }
-        } else if (blue > red && blue > green) {
-            if ((red - green) > 100) {
-                color = "magenta";
-            } else {
-                color = "azul";
-            }
-        } else if ((red > 2000 && green > 2000 && blue < 1000)) {
-            color = "amarelo";
-        } else if ((red > green && green > blue) && (red - green < 500)) {
-            color = "marrom";
-        }
+        // Normalização dos valores de cor
+        float r = (float)red / clear;
+        float g = (float)green / clear;
+        float b = (float)blue / clear;
+
+        // Converte para o formato hexadecimal
+        int rHex = (int)(r * 255.0);
+        int gHex = (int)(g * 255.0);
+        int bHex = (int)(b * 255.0);
+
+        char hexColor[8];
+        snprintf(hexColor, sizeof(hexColor), "#%02X%02X%02X", rHex, gHex, bHex);
 
         // Publica a cor detectada no tópico MQTT
-        Serial.printf("Cor detectada: %s\n", color);
-        sendMessage("sensor_de_cor", "cor", color);
-
-    } else if (!currentPresence) {
-        objectPreviouslyDetected = false;
+        Serial.printf("Cor detectada: %s\n", hexColor);
+        sendMessage("sensor_de_cor", "cor", hexColor);
     }
 
-    delay(200);
+    delay(100); // Pequeno atraso para evitar processamento excessivo
 }
 ```
